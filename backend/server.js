@@ -23,6 +23,13 @@ db.once('open', () => {
 app.use(cors())
 app.use(express.json())
 
+// routing
+const exerciseRouter = require('./routes/exercises')
+const userRouter = require('./routes/users')
+
+app.use('/exercises', exerciseRouter)
+app.use('/users', userRouter)
+
 // starts the server
 app.listen(port, () => {
   console.log(`The server is listening on port: ${port}`)

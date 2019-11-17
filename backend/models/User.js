@@ -8,6 +8,8 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
+    lowercase:true,
+    minLength: 3,
     unique: true,
     trim: true,
   },
@@ -16,7 +18,7 @@ const userSchema = new Schema({
 })
 
 // create the model from the schema
-const User = mongoose.model('Exercise', userSchema);
+const User = mongoose.model('User', userSchema);
 
 // export it!
 module.exports = User;
