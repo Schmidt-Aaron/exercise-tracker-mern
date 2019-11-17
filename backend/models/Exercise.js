@@ -7,7 +7,9 @@ const Schema = mongoose.Schema;
 const exerciseSchema = new Schema({
   username: {
     type: String,
+    lowercase: true,
     required: true,
+    trim: true
   },
   description: {type: String, required:true},
   duration: {type: Number, required: true},

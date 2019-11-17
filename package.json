@@ -10,6 +10,5 @@
   "author": "Aaron Schmidt",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.7.10"
   }
 }

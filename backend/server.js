@@ -21,7 +21,8 @@ db.once('open', () => {
 
 // middleware
 app.use(cors())
-app.use(express.json())
+app.use(express.json()) // parse application/json
+app.use(express.urlencoded({ extended: true})) // parse formdata
 
 // routing
 const exerciseRouter = require('./routes/exercises')
