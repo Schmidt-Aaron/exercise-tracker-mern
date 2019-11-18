@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import ExerciseList from "./components/ExerciseList";
 import UserList from "./components/UserList";
+import Header from "./components/Header";
+import NewUser from "./components/NewUser";
 
 class App extends Component {
   state = {
@@ -28,15 +30,8 @@ class App extends Component {
     return (
       <div className="App">
         <main>
-          <header>
-            <h1>Exercise Tracker</h1>
-            <nav>
-              <ul>
-                <li className="nav-item">Users</li>
-                <li className="nav-item">Exercises</li>
-              </ul>
-            </nav>
-          </header>
+          <Header />
+          <NewUser />
           <UserList users={[...users]} />
           <ExerciseList exerciseList={[...exerciseList]} />
           <footer>footer</footer>

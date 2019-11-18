@@ -9,7 +9,7 @@ export default function UserList(props) {
       <h2>Users</h2>
       <ul>
         {users.map((user, i) => (
-          <li>{user.username}</li>
+          <li key={i}>{user.username}</li>
         ))}
       </ul>
     </div>
