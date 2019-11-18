@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import ExerciseList from "./components/ExerciseList";
+import UserList from "./components/UserList";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    exerciseList: [],
+    users: []
+  };
+
+  componentDidMount() {
+    // const exerciseList = fetch("http://localhost:7777/exercises")
+    //   .then(data => data.json())
+    //   .then(exerciseList => this.setState({ exerciseList }))
+
+    //   .catch(error => console.error(error));
+
+    const users = fetch("http://localhost:7777/users")
+      .then(data => data.json())
+      .then(users => this.setState({ users }))
+
+      .catch(error => console.error(error));
+  }
+
+  render() {
+    const { exerciseList, users } = this.state;
+    return (
+      <div className="App">
+        <main>
+          <header>
+            <h1>Exercise Tracker</h1>
+            <nav>
+              <ul>
+                <li className="nav-item">Users</li>
+                <li className="nav-item">Exercises</li>
+              </ul>
+            </nav>
+          </header>
+          <UserList users={[...users]} />
+          <ExerciseList exerciseList={[...exerciseList]} />
+          <footer>footer</footer>
+        </main>
+      </div>
+    );
+  }
 }
 
 export default App;
