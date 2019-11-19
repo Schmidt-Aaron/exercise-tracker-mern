@@ -59,6 +59,11 @@ router.route("/:id").get((req, res) => {
 });
 
 // delete an exercise
+router.route("/:id").delete((req, res) => {
+  Exercise.findByIdAndDelete(req.params.id).then(() => {
+    res.status(200).json(`Exercise Removed.`);
+  });
+});
 
 //update an exercise
 router.route("/update/:id").get((req, res) => {
