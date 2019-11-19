@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 export default function ExerciseList(props) {
   const { exerciseList } = props;
@@ -7,14 +8,16 @@ export default function ExerciseList(props) {
   return (
     <div>
       <h2>Exercise List</h2>
-      {exerciseList.map((exercise, i) => (
-        <div key={i}>
-          <h4>{exercise.desciption}</h4>
-          <p>Name: {exercise.username}</p>
-          <p>Duration: {exercise.duration}</p>
-          <p>On: {exercise.date}</p>
-        </div>
-      ))}
+      <div className="exerciseContainer">
+        {exerciseList.map((exercise, i) => (
+          <div key={i}>
+            <h4>{exercise.description}</h4>
+            <p>Name: {exercise.username}</p>
+            <p>Duration: {exercise.duration}</p>
+            <p>On: {moment(exercise.date).format("YYYY-MM-DD")}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

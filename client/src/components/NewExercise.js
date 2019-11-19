@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 
-class NewUser extends Component {
+class NewExercise extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: ""
+      username: "",
+      duration: 0,
+      description: "",
+      date: new Date()
     };
 
     this.handleInput = this.handleInput.bind(this);
@@ -20,7 +23,7 @@ class NewUser extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const fetchPromise = fetch("http://localhost:7777/users/add", {
+    const fetchPromise = fetch("http://localhost:7777/exercises/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...this.state })
@@ -33,7 +36,10 @@ class NewUser extends Component {
       .then(data => {
         console.log(data);
         this.setState({
-          username: ""
+          username: "",
+          duration: 0,
+          description: "",
+          date: new Date()
         });
       });
     // redirect / reload page??
@@ -42,7 +48,7 @@ class NewUser extends Component {
   render() {
     return (
       <div>
-        <h2>Create a New User</h2>
+        <h2>Add a New Exercise</h2>
         <form>
           <div>
             <label htmlFor="name">Name</label>
@@ -51,6 +57,33 @@ class NewUser extends Component {
               name="username"
               id="name"
               value={this.state.username}
+              onChange={this.handleInput}
+              required
+            />
+            <label htmlFor="description">Description</label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              value={this.state.description}
+              onChange={this.handleInput}
+              required
+            />
+            <label htmlFor="duration">Duration</label>
+            <input
+              type="text"
+              name="duration"
+              id="duration"
+              value={this.state.duration}
+              onChange={this.handleInput}
+              required
+            />
+            <label htmlFor="date">Date</label>
+            <input
+              type="date"
+              name="date"
+              id="date"
+              value={this.state.date}
               onChange={this.handleInput}
               required
             />
@@ -64,4 +97,4 @@ class NewUser extends Component {
   }
 }
 
-export default NewUser;
+export default NewExercise;

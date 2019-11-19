@@ -13,11 +13,12 @@ code {
     monospace;
 }
 
-main {
+.App {
   display: grid;
   min-height: 100vh;
   grid-template-rows: 100px 1fr 100px;
   grid-gap: 1rem;
+  padding: 1rem;
 }
 
 header {
@@ -40,7 +41,10 @@ header nav ul {
   padding-left: 2rem;
 }
 
-main section {
+main {
+  max-width: 960px;
+
+  margin: 0 auto;
   padding: 2rem;
 }
 

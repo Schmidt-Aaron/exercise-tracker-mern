@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import ExerciseList from "./components/ExerciseList";
 import UserList from "./components/UserList";
 import Header from "./components/Header";
 import NewUser from "./components/NewUser";
+import NewExercise from "./components/NewExercise";
+import Footer from "./components/Footer";
 
 class App extends Component {
   state = {
@@ -12,11 +13,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // const exerciseList = fetch("http://localhost:7777/exercises")
-    //   .then(data => data.json())
-    //   .then(exerciseList => this.setState({ exerciseList }))
+    // move to hooks later
+    const exerciseList = fetch("http://localhost:7777/exercises")
+      .then(data => data.json())
+      .then(exerciseList => this.setState({ exerciseList }))
 
-    //   .catch(error => console.error(error));
+      .catch(error => console.error(error));
 
     const users = fetch("http://localhost:7777/users")
       .then(data => data.json())
@@ -29,13 +31,14 @@ class App extends Component {
     const { exerciseList, users } = this.state;
     return (
       <div className="App">
+        <Header />
         <main>
-          <Header />
-          <NewUser />
-          <UserList users={[...users]} />
+          <NewExercise />
+          {/* <NewUser /> */}
+          {/* <UserList users={[...users]} /> */}
           <ExerciseList exerciseList={[...exerciseList]} />
-          <footer>footer</footer>
         </main>
+        <Footer />
       </div>
     );
   }
