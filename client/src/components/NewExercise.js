@@ -8,7 +8,7 @@ class NewExercise extends Component {
       username: "",
       duration: 0,
       description: "",
-      date: new Date()
+      date: undefined
     };
 
     this.handleInput = this.handleInput.bind(this);
