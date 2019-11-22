@@ -31,7 +31,9 @@ app.use(express.urlencoded({ extended: true })); // parse formdata
 // routing
 const exerciseRouter = require("./controllers/exercises");
 const userRouter = require("./controllers/users");
+const authRouter = require("./controllers/auth");
 
+// app.use("/auth", authRouter);
 app.use("/exercises", exerciseRouter);
 app.use("/users", userRouter);
 

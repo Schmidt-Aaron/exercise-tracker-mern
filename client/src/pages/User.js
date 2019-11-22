@@ -1,10 +1,7 @@
 import React from "react";
-import ExerciseList from "../components/ExerciseList";
-import UserList from "../components/UserList";
-import Header from "../components/Header";
-import NewUser from "../components/NewUser";
+
 import NewExercise from "../components/NewExercise";
-import Footer from "../components/Footer";
+import Layout from "../layouts/Layout";
 
 const Home = props => {
   const user = props.match.params.username;
@@ -14,17 +11,10 @@ const Home = props => {
     .catch(error => console.error(error));
 
   return (
-    <div className="App">
-      <Header />
-      <main>
-        <p>Welcome {user}</p>
-        <NewExercise />
-        {/* <NewUser /> */}
-        {/* <UserList users={[...users]} /> */}
-        {/* <ExerciseList exerciseList={[...exerciseList]} /> */}
-      </main>
-      <Footer />
-    </div>
+    <Layout>
+      <p>Welcome {user}</p>
+      <NewExercise />
+    </Layout>
   );
 };
 

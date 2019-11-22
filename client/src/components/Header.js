@@ -13,6 +13,12 @@ const Header = () => {
             <NavLink to="/users">Users</NavLink>
           </li>
           <li className="nav-item">Exercises</li>
+          <li className="nav-item">
+            <NavLink to="/register">Sign Up</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/login">Sign In</NavLink>
+          </li>
         </ul>
       </nav>
     </header>
