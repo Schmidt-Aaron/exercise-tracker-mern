@@ -14,7 +14,7 @@ const port = process.env.PORT || 7777;
 // middleware
 app.use(cors());
 app.use(flash());
-app.use(express.session({ secret: "aaron" })); // generate better secret later!
+// app.use(session({ secret: "aaron" })); // generate better secret later!
 app.use(express.json()); // parse application/json
 app.use(express.urlencoded({ extended: true })); // parse formdata
 
@@ -35,7 +35,7 @@ db.once("open", () => {
 // routing
 const exerciseRouter = require("./controllers/exercises");
 const userRouter = require("./controllers/users");
-const authRouter = require("./controllers/auth");
+// const authRouter = require("./controllers/auth");
 
 // app.use("/auth", authRouter);
 app.use("/exercises", exerciseRouter);
