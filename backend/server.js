@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
+const MongoStore = require("connect-mongo")(session);
+const { confirmAuthenticated } = require("./config/auth.js");
 
 require("dotenv").config();
 
@@ -35,7 +37,8 @@ app.use(
   session({
     secret: "aaron",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 ); // generate better secret later!
 
@@ -49,7 +52,7 @@ const authRouter = require("./controllers/auth");
 
 // app.use("/auth", authRouter);
 app.use("/exercises", exerciseRouter);
-app.use("/users", userRouter);
+app.use("/users", confirmAuthenticated, userRouter);
 app.use("/auth", authRouter); // change routing later
 
 // starts the server

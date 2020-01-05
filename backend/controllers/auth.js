@@ -19,7 +19,8 @@ router.route("/login").post((req, res, next) => {
       if (err) {
         return next(err);
       }
-      return res.status(200).json("user logged in");
+      const { username, _id } = user;
+      return res.status(200).json({ username, _id });
     });
   })(req, res, next);
 });

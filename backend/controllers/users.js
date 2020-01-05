@@ -4,6 +4,12 @@ const bcrypt = require("bcrypt");
 
 // get all users
 router.route("/").get((req, res) => {
+  // if (req.isAuthenticated()) {
+  //   res.json("auth is good my man!");
+  // } else {
+  //   res.json("no authorized!!");
+  // }
+
   const users = User.find()
     .then(users => {
       console.log(users);
