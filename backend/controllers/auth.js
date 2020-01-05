@@ -1,10 +1,32 @@
+// lives at the root/auth path
+
 const router = require("express").Router();
-const bcrypt = require("bcrypt");
-const passport = require("passport");
+const passport = require("../config/passport");
 let User = require("../models/User");
 
-const initPassport = require("./passport-config");
-initPassport(passport, email => {
-  // find user with email
-  User.findOne({ email: email }).then(user => user);
+router.route("/login").post((req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    console.log(err, user, info);
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      return res.json("no user");
+    }
+
+    req.login(user, err => {
+      if (err) {
+        return next(err);
+      }
+      return res.status(200).json("user logged in");
+    });
+  })(req, res, next);
 });
+
+router.route("/logout").get((req, res) => {
+  req.logout();
+  res.status(200).json("user logged out");
+});
+
+module.exports = router;

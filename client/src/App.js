@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Users from "./pages/Users";
 import User from "./pages/User";
 import RegisterUser from "./components/RegisterUser";
+import Login from "./components/Login";
 
 class App extends Component {
   state = {
@@ -30,6 +31,7 @@ class App extends Component {
         <Switch>
           <Route path="/user/:username" component={User} />
           <Route path="/register" component={RegisterUser} />
+          <Route path="/login" component={Login} />
           <Route path="/users">
             <Users {...this.state} />
           </Route>

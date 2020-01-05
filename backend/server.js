@@ -4,19 +4,13 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const session = require("express-session");
+const passport = require("passport");
 
 require("dotenv").config();
 
 // initialize express
 const app = express();
 const port = process.env.PORT || 7777;
-
-// middleware
-app.use(cors());
-app.use(flash());
-// app.use(session({ secret: "aaron" })); // generate better secret later!
-app.use(express.json()); // parse application/json
-app.use(express.urlencoded({ extended: true })); // parse formdata
 
 // set up mongoDB connection
 const uri = process.env.MONGO_URI;
@@ -32,14 +26,31 @@ db.once("open", () => {
   console.log("MongoDB connection established");
 });
 
+// middleware
+app.use(cors());
+app.use(flash());
+app.use(express.json()); // parse application/json
+app.use(express.urlencoded({ extended: true })); // parse formdata
+app.use(
+  session({
+    secret: "aaron",
+    resave: false,
+    saveUninitialized: true
+  })
+); // generate better secret later!
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // routing
 const exerciseRouter = require("./controllers/exercises");
 const userRouter = require("./controllers/users");
-// const authRouter = require("./controllers/auth");
+const authRouter = require("./controllers/auth");
 
 // app.use("/auth", authRouter);
 app.use("/exercises", exerciseRouter);
 app.use("/users", userRouter);
+app.use("/auth", authRouter); // change routing later
 
 // starts the server
 app.listen(port, () => {

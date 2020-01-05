@@ -27,9 +27,11 @@ router.route("/register").post(async (req, res) => {
 
     newUser
       .save()
-      .then(user => res.status(200).json(`User added: ${newUser.username}`))
+      .then(user => res.status(200).json(`User added: ${newUser.userName}`))
       .catch(error => res.status(400).json(`Error: ${error}`));
-  } catch {}
+  } catch {
+    err => console.log(err);
+  }
 });
 
 // remove a user
