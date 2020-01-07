@@ -17,12 +17,29 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
       minLength: 2 // change later for security
     },
     password: {
       type: String,
       required: true,
+      trim: true,
       minLength: 6
+    },
+    age: {
+      type: Number,
+      min: 18,
+      max: 120
+    },
+    weight: {
+      type: Number, // convert to Map when adding tracking feature
+      min: 50,
+      max: 750
+    },
+    height: {
+      type: Number,
+      min: 48,
+      max: 120
     }
   },
   {

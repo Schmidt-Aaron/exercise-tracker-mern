@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout";
 
 const Home = props => {
   return (
-    <Layout>
+    <Layout {...props}>
       <NewExercise />
     </Layout>
   );

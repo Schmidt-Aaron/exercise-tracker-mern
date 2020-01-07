@@ -52,7 +52,8 @@ const authRouter = require("./controllers/auth");
 
 // app.use("/auth", authRouter);
 app.use("/exercises", exerciseRouter);
-app.use("/users", confirmAuthenticated, userRouter);
+// app.use("/users", confirmAuthenticated, userRouter); // example of protected route
+app.use("/users", userRouter);
 app.use("/auth", authRouter); // change routing later
 
 // starts the server

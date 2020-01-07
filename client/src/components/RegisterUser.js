@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Layout from "../layouts/Layout";
 
 class RegisterUser extends Component {
   constructor(props) {
@@ -45,41 +46,43 @@ class RegisterUser extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Create a New User</h2>
-        <form>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="username"
-            id="name"
-            value={this.state.username}
-            onChange={this.handleInput}
-            required
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={this.state.email}
-            onChange={this.handleInput}
-            required
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={this.state.password}
-            onChange={this.handleInput}
-            required
-          />
-          <button type="submit" onClick={this.handleSubmit}>
-            Submit
-          </button>
-        </form>
-      </div>
+      <Layout>
+        <div>
+          <h2>Create a New User</h2>
+          <form>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="username"
+              id="name"
+              value={this.state.username}
+              onChange={this.handleInput}
+              required
+            />
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={this.state.email}
+              onChange={this.handleInput}
+              required
+            />
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={this.state.password}
+              onChange={this.handleInput}
+              required
+            />
+            <button type="submit" onClick={this.handleSubmit}>
+              Submit
+            </button>
+          </form>
+        </div>
+      </Layout>
     );
   }
 }

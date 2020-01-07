@@ -2,11 +2,11 @@ import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const Layout = ({ children }) => {
+const Layout = props => {
   return (
     <div className="App">
-      <Header />
-      <main>{children}</main>
+      <Header user={props.user} />
+      <main>{props.children}</main>
       <Footer />
     </div>
   );

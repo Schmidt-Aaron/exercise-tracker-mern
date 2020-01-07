@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Users from "./pages/Users";
-import User from "./pages/User";
+import Profile from "./pages/Profile";
 import RegisterUser from "./components/RegisterUser";
 import Login from "./components/Login";
+import UserContext from "./hooks/UserContext";
 
 class App extends Component {
   state = {
     exerciseList: [],
-    users: []
+    user: null
   };
 
   componentDidMount() {
@@ -25,21 +26,20 @@ class App extends Component {
   }
 
   render() {
-    const { exerciseList, users } = this.state;
+    const { user } = this.state;
     return (
-      <div>
+      <UserContext.Provider value={user}>
         <Switch>
-          <Route path="/user/:username" component={User} />
           <Route path="/register" component={RegisterUser} />
           <Route path="/login" component={Login} />
-          <Route path="/users">
-            <Users {...this.state} />
+          <Route path="/profile">
+            <Profile />
           </Route>
           <Route path="/">
             <Home {...this.state} />
           </Route>
         </Switch>
-      </div>
+      </UserContext.Provider>
     );
   }
 }

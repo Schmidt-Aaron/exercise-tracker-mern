@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import UserContext from "../hooks/UserContext";
 
 const Header = () => {
+  const user = React.useContext(UserContext);
   return (
     <header>
       <Link to="/">
@@ -9,16 +11,23 @@ const Header = () => {
       </Link>
       <nav>
         <ul>
-          <li className="nav-item">
-            <NavLink to="/users">Users</NavLink>
-          </li>
-          <li className="nav-item">Exercises</li>
-          <li className="nav-item">
-            <NavLink to="/register">Sign Up</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/login">Sign In</NavLink>
-          </li>
+          {!user ? (
+            <>
+              <li className="nav-item">
+                <NavLink to="/register">Sign Up</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/login">Log In</NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <span>Hi {`${user.username}!`}</span>
+              <li className="nav-item">
+                <NavLink to="/profile">Profile</NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </header>
