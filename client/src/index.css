@@ -45,6 +45,10 @@ header nav ul {
   padding-left: 2rem;
 }
 
+.logout {
+  cursor: pointer;
+}
+
 main {
   max-width: 960px;
 
@@ -54,4 +58,10 @@ main {
 
 footer {
   padding: 2rem;
+}
+
+/* form stuff */
+input,
+label {
+  display: block;
 }

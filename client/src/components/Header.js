@@ -34,7 +34,9 @@ const Header = props => {
                 <NavLink to="/profile">Profile</NavLink>
               </li>
               <li className="nav-item">
-                <span onClick={logoutCurrentUser}>Logout</span>
+                <span class="logout" onClick={logoutCurrentUser}>
+                  Logout
+                </span>
               </li>
             </>
           )}

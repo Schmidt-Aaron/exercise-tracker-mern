@@ -1,31 +1,27 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
-class RegisterUser extends Component {
-  constructor(props) {
-    super(props);
+const RegisterUser = () => {
+  const initialFormState = {
+    username: "",
+    email: "",
+    password: "",
+    redirect: false
+  };
 
-    this.state = {
-      username: "",
-      email: "",
-      password: ""
-    };
+  const [user, setUser] = useState(initialFormState);
 
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleInput = event => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+  };
 
-  handleInput(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
+  const handleSubmit = event => {
+    event.preventDefault();
     const fetchPromise = fetch("http://localhost:7777/users/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...this.state })
+      body: JSON.stringify({ ...user })
     });
 
     fetchPromise
@@ -34,54 +30,56 @@ class RegisterUser extends Component {
       })
       .then(data => {
         console.log(data);
-        this.setState({
-          username: "",
-          email: "",
-          password: ""
-        });
+        setUser({ ...user, redirect: true });
       });
     // redirect / reload page??
+  };
+
+  const { username, email, password, redirect } = user;
+
+  // redirect after creating a new user
+  // TODO: create a flash message after logging in
+  if (redirect) {
+    return <Redirect to={{ pathname: "/login", state: { newUser: true, newUserName: username } }} />;
   }
 
-  render() {
-    return (
-      <div>
-        <h2>Create a New User</h2>
-        <form>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="username"
-            id="name"
-            value={this.state.username}
-            onChange={this.handleInput}
-            required
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={this.state.email}
-            onChange={this.handleInput}
-            required
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={this.state.password}
-            onChange={this.handleInput}
-            required
-          />
-          <button type="submit" onClick={this.handleSubmit}>
-            Submit
-          </button>
-        </form>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h2>Create a New User</h2>
+      <form>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          name="username"
+          id="name"
+          value={username}
+          onChange={handleInput}
+          required
+        />
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={email}
+          onChange={handleInput}
+          required
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={password}
+          onChange={handleInput}
+          required
+        />
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default RegisterUser;

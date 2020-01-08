@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 
 const Login = props => {
   const initialFormState = {
     email: "",
-    password: ""
+    password: "",
+    redirect: false
   };
 
   const [user, setUser] = useState(initialFormState);
+
+  const { email, password, redirect } = user;
 
   const handleInput = event => {
     const { name, value } = event.target;
@@ -17,7 +21,7 @@ const Login = props => {
   const handleSubmit = event => {
     event.preventDefault();
     // TODO improve validation
-    if (!user.email || !user.password) return;
+    if (!email || !password) return;
 
     // build our request
     const fetchPromise = fetch("http://localhost:7777/auth/login", {
@@ -34,20 +38,43 @@ const Login = props => {
       .then(user => {
         console.log(user);
         props.loginUser({ ...user });
+      })
+      .then(() => {
+        // trigger redirect via react router
+        setUser({ ...user, redirect: true });
       });
-    // redirect / reload page??
+  };
+
+  // redirect if true
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+
+  // if a new user registered => redirect to login page
+  let newUser = false;
+  if (props.location.state.newUser) {
+    newUser = true;
+  }
+  const Welcome = props => {
+    if (props.newUser) {
+      return (
+        <p>Thanks for registering! Please login to access your account.</p>
+      );
+    }
+    return null;
   };
 
   return (
     <div>
       <h2>Login</h2>
+      <Welcome newUser={newUser} />
       <form>
         <label htmlFor="email">Email</label>
         <input
           type="email"
           name="email"
           id="email"
-          value={user.email}
+          value={email}
           onChange={handleInput}
           required
         />
@@ -56,7 +83,7 @@ const Login = props => {
           type="password"
           name="password"
           id="password"
-          value={user.password}
+          value={password}
           onChange={handleInput}
           required
         />

@@ -1,8 +1,7 @@
 import React from "react";
-import NewExercise from "../components/NewExercise";
 
 const Home = props => {
-  return <NewExercise />;
+  return <section>HomePage content goes here</section>;
 };
 
 export default Home;
