@@ -30,6 +30,10 @@ header {
   padding: 0 2rem;
 }
 
+header a {
+  text-decoration: none;
+}
+
 header nav ul {
   display: flex;
   align-items: center;

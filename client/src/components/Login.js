@@ -1,79 +1,71 @@
-import React, { Component } from "react";
-import Layout from "../layouts/Layout";
+import React, { useState } from "react";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+const Login = props => {
+  const initialFormState = {
+    email: "",
+    password: ""
+  };
 
-    this.state = {
-      email: "",
-      password: ""
-    };
+  const [user, setUser] = useState(initialFormState);
 
-    this.handleInput = this.handleInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleInput = event => {
+    const { name, value } = event.target;
 
-  handleInput(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
+    setUser({ ...user, [name]: value });
+  };
 
-  handleSubmit(e) {
-    e.preventDefault();
+  const handleSubmit = event => {
+    event.preventDefault();
+    // TODO improve validation
+    if (!user.email || !user.password) return;
+
+    // build our request
     const fetchPromise = fetch("http://localhost:7777/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...this.state })
+      body: JSON.stringify({ ...user })
     });
 
+    // fire our request off => get back user data
     fetchPromise
       .then(response => {
         return response.json();
       })
-      .then(data => {
-        console.log(data);
-        this.setState({
-          email: "",
-          password: ""
-        });
+      .then(user => {
+        console.log(user);
+        props.loginUser({ ...user });
       });
     // redirect / reload page??
-  }
+  };
 
-  render() {
-    return (
-      <Layout>
-        <div>
-          <h2>Login</h2>
-          <form>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={this.state.email}
-              onChange={this.handleInput}
-              required
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              value={this.state.password}
-              onChange={this.handleInput}
-              required
-            />
-            <button type="submit" onClick={this.handleSubmit}>
-              Submit
-            </button>
-          </form>
-        </div>
-      </Layout>
-    );
-  }
-}
+  return (
+    <div>
+      <h2>Login</h2>
+      <form>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={user.email}
+          onChange={handleInput}
+          required
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={user.password}
+          onChange={handleInput}
+          required
+        />
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Login;

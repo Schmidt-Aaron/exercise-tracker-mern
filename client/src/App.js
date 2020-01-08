@@ -1,47 +1,43 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 import RegisterUser from "./components/RegisterUser";
 import Login from "./components/Login";
-import UserContext from "./hooks/UserContext";
+import { UserProvider } from "./hooks/UserContext";
+import Layout from "./layouts/Layout";
 
-class App extends Component {
-  state = {
-    exerciseList: [],
+const App = () => {
+  const initialUserState = {
     user: null
   };
 
-  componentDidMount() {
-    // move to hooks later
-    // const exerciseList = fetch("http://localhost:7777/exercises")
-    //   .then(data => data.json())
-    //   .then(exerciseList => this.setState({ exerciseList }))
-    //   .catch(error => console.error(error));
-    // const users = fetch("http://localhost:7777/users")
-    //   .then(data => data.json())
-    //   .then(users => this.setState({ users }))
-    //   .catch(error => console.error(error));
-  }
+  const [user, setUser] = useState(initialUserState);
 
-  render() {
-    const { user } = this.state;
-    return (
-      <UserContext.Provider value={user}>
+  const loginUser = user => {
+    setUser({ ...user });
+  };
+
+  return (
+    <UserProvider value={user}>
+      <Layout logout={loginUser}>
         <Switch>
           <Route path="/register" component={RegisterUser} />
-          <Route path="/login" component={Login} />
+          <Route
+            path="/login"
+            render={props => <Login {...props} loginUser={loginUser} />}
+          />
           <Route path="/profile">
             <Profile />
           </Route>
           <Route path="/">
-            <Home {...this.state} />
+            <Home />
           </Route>
         </Switch>
-      </UserContext.Provider>
-    );
-  }
-}
+      </Layout>
+    </UserProvider>
+  );
+};
 
 export default App;
