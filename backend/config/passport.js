@@ -6,7 +6,9 @@ let User = require("../models/User");
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "email"
+      /* Tell passport what to use from req.body */
+      usernameField: "email",
+      passwordField: "password"
     },
     (email, password, done) => {
       console.log("looking...");

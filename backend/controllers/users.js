@@ -22,15 +22,15 @@ router.route("/").get((req, res) => {
 // add a user
 router.route("/register").post(async (req, res) => {
   try {
-    const { username, email, password, age, height, weight } = req.body;
+    const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
-      age,
-      height,
-      weight
+      age: null,
+      height: null,
+      weight: null
     });
 
     console.log(newUser);
