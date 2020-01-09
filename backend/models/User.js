@@ -47,6 +47,21 @@ const userSchema = new Schema(
   }
 );
 
+// Error handlers must have error, document, and next function
+// Error for duplicate email uses mongoose post middleware
+userSchema.post("save", (error, doc, next) => {
+  if ((error.name = "MongoError" && error.code === 11000)) {
+    let cb = {
+      errorMessage: "This user already exists",
+      errorCode: 11000
+    };
+    const jsonCB = JSON.stringify(cb);
+    next(jsonCB);
+  } else {
+    next(error);
+  }
+});
+
 // create the model from the schema
 const User = mongoose.model("User", userSchema);
 

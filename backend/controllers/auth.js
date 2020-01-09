@@ -19,8 +19,8 @@ router.route("/login").post((req, res, next) => {
       if (err) {
         return next(err);
       }
-      const { username, _id } = user;
-      return res.status(200).json({ username, _id });
+      const { username, email, age, height, weight } = user;
+      return res.status(200).json({ username, email, age, height, weight });
     });
   })(req, res, next);
 });

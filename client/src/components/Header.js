@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import UserContext from "../hooks/UserContext";
 
 const Header = props => {
   const { logout } = props;
-  const user = React.useContext(UserContext);
+
+  const user = useContext(UserContext);
 
   const logoutCurrentUser = () => {
     console.log("logging out");

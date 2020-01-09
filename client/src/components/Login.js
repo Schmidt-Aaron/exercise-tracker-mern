@@ -52,8 +52,10 @@ const Login = props => {
 
   // if a new user registered => redirect to login page
   let newUser = false;
-  if (props.location.state.newUser) {
-    newUser = true;
+  if (props.location.state) {
+    if (props.location.state.newUser) {
+      newUser = true;
+    }
   }
   const Welcome = props => {
     if (props.newUser) {

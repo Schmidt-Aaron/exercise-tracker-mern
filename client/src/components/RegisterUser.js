@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
+import ErrorMessage from "./ErrorMessage";
 
 const RegisterUser = () => {
   const initialFormState = {
     username: "",
     email: "",
     password: "",
-    redirect: false
+    redirect: false,
+    error: null
   };
 
   const [user, setUser] = useState(initialFormState);
@@ -26,13 +28,31 @@ const RegisterUser = () => {
 
     fetchPromise
       .then(response => {
-        return response.json();
+        // handle error for duplicate entry
+        //TODO refactor response error handling into seperate file
+        if (!response.ok) {
+          response.json().then(error => {
+            console.error(error);
+            const responseObj = JSON.parse(error);
+            if (responseObj.errorCode === 11000) {
+              const msg = "That email is already taken. Please try another.";
+              setUser({ ...user, error: msg });
+            }
+          });
+        } else {
+          return response.json();
+        }
       })
       .then(data => {
-        console.log(data);
-        setUser({ ...user, redirect: true });
+        // redirect if response is ok
+        if (data) {
+          console.log(data);
+          setUser({ ...user, redirect: true });
+        }
+      })
+      .catch(error => {
+        console.log(error);
       });
-    // redirect / reload page??
   };
 
   const { username, email, password, redirect } = user;
@@ -40,12 +60,20 @@ const RegisterUser = () => {
   // redirect after creating a new user
   // TODO: create a flash message after logging in
   if (redirect) {
-    return <Redirect to={{ pathname: "/login", state: { newUser: true, newUserName: username } }} />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: { newUser: true, newUserName: username }
+        }}
+      />
+    );
   }
 
   return (
     <div>
       <h2>Create a New User</h2>
+      {user.error ? <ErrorMessage error={user.error} /> : null}
       <form>
         <label htmlFor="name">Name</label>
         <input
