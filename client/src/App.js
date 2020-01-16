@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Users from "./pages/Users";
-import Profile from "./pages/Profile";
+import Profile from "./components/Profile";
 import RegisterUser from "./components/RegisterUser";
 import Login from "./components/Login";
 import { UserProvider } from "./hooks/UserContext";
