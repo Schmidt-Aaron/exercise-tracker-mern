@@ -1,3 +1,9 @@
+/**
+ *
+ * Describe an individual workout session with list of individual exercises
+ *
+ */
+
 const mongoose = require("mongoose");
 
 // create the schema

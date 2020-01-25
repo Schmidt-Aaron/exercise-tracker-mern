@@ -1,3 +1,9 @@
+/**
+ *
+ * User Profile
+ * pulls in workout schema to populate workouts object/array
+ */
+
 const mongoose = require("mongoose");
 
 // create the schema
@@ -18,7 +24,7 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       trim: true,
-      minLength: 2 // change later for security
+      minLength: 2 // todo change later for security
     },
     password: {
       type: String,
@@ -32,15 +38,19 @@ const userSchema = new Schema(
       max: 120
     },
     weight: {
-      type: Number, // convert to Map when adding tracking feature
+      type: Number, // todo convert to Map when adding tracking feature
       min: 50,
       max: 750
     },
     height: {
-      type: Number,
+      type: Number, // todo save in cm; list in inches
       min: 48,
       max: 120
-    }
+    },
+    workouts: {
+      type: Array // todo revisit this type and populate
+    },
+    avatar: { type: String } // todo finish link to avatar resource. Gravatar // uploaded picture
   },
   {
     timestamps: true
