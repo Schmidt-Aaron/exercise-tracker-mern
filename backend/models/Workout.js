@@ -13,11 +13,10 @@ const Schema = mongoose.Schema;
 const workoutSchema = new Schema(
   {
     date: { type: Date, required: true },
-    exercises: { type: Object },
+    exercisesPerformed: { type: Object },
     duration: { type: Number },
     distance: { type: Number },
-    notes: { type: String, required: true },
-    exerciseNumber: { type: Number }
+    notes: { type: String, required: true }
   },
   {
     timestamps: true

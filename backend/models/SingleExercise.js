@@ -1,6 +1,6 @@
 /**
  *
- *  Schema for a single exersise session of a workout
+ *  Schema for a single exercise session of a workout
  *  child of Workout; pulls in Exercise schema to populate exercise details
  */
 
@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // describe the schema
-const sessionSchema = new Schema(
+const singleExerciseSchema = new Schema(
   {
     exerciseName: {
       // todo pull this from exercise schema/db
@@ -21,11 +21,12 @@ const sessionSchema = new Schema(
     },
     description: { type: String },
     sets: {
+      // lifting set data
       reps: { type: Number },
       weight: { type: Number }, // todo deal with kg or lbs; deal with multiple weights for each set
-      speed: {
-        type: Number // todo standardize speed... maybe go for pace
-      }
+      // cardio set data
+      pace: Number, // todo standardize speed... maybe go for pace
+      distance: Number
     },
     duration: { type: Number }, //todo X => seconds
     distance: {
@@ -40,7 +41,7 @@ const sessionSchema = new Schema(
 );
 
 // create the model from the schema
-const Session = mongoose.model("Exercise", sessionSchema);
+const singleExercise = mongoose.model("Exercise", singleExerciseSchema);
 
 // export it!
-module.exports = Session;
+module.exports = singleExercise;
