@@ -15,8 +15,8 @@ const exerciseDefinitionSchema = new Schema(
     },
     description: { type: String }, // describe the exercise
     muscleGroup: { type: String }, // macro level muscle group
-    muscleList: [String], // all muscles
-    exerciseType: { type: String }, // weights, cardio, stretch, yoga...etc
+    muscleList: [String], // all major muscles worked
+    exerciseType: { type: String }, // strength, cardio, mobility, balance...etc
     difficulty: { type: String }, // beginner, intermediate, advanced
     movementType: { type: String } // horiz push/pull, vert pus/pull, legs
   },
@@ -24,6 +24,21 @@ const exerciseDefinitionSchema = new Schema(
     timestamps: true
   }
 );
+
+// sample muscle group info
+const muscleGroup = [
+  "trapezius",
+  "shoulders",
+  "chest",
+  "biceps",
+  "triceps",
+  "forearms",
+  "abs",
+  "back",
+  "quadricepss",
+  "hamstrings",
+  "calves"
+];
 
 // create the model from the schema
 const ExerciseDefinition = mongoose.model(

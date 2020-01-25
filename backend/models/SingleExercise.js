@@ -41,7 +41,7 @@ const singleExerciseSchema = new Schema(
 );
 
 // create the model from the schema
-const singleExercise = mongoose.model("Exercise", singleExerciseSchema);
+const singleExercise = mongoose.model("SingleExercise", singleExerciseSchema);
 
 // export it!
 module.exports = singleExercise;

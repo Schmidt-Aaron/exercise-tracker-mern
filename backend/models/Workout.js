@@ -16,7 +16,9 @@ const workoutSchema = new Schema(
     exercisesPerformed: { type: Object },
     duration: { type: Number },
     distance: { type: Number },
-    notes: { type: String, required: true }
+    notes: { type: String },
+    public: Boolean,
+    favorite: Boolean
   },
   {
     timestamps: true
