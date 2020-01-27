@@ -7,7 +7,7 @@ module.exports = {
     }
 
     // not authorized
-    res.status(401).json("Not Authorized"); // temporary for testing
+    res.status(401).json("Not Authorized"); // TODO temporary for testing
     // res.redirect("/login")
   },
 

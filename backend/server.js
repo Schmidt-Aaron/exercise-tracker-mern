@@ -12,7 +12,7 @@ require("dotenv").config();
 
 // initialize express
 const app = express();
-const port = process.env.PORT || 7777;
+const PORT = process.env.PORT || 7777;
 
 // set up mongoDB connection
 const uri = process.env.MONGO_URI;
@@ -35,12 +35,12 @@ app.use(express.json()); // parse application/json
 app.use(express.urlencoded({ extended: true })); // parse formdata
 app.use(
   session({
-    secret: "aaron",
+    secret: "aaron", // TODO move to .env and make secure
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
-); // generate better secret later!
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -57,6 +57,6 @@ app.use("/users", userRouter);
 app.use("/auth", authRouter); // change routing later
 
 // starts the server
-app.listen(port, () => {
-  console.log(`The server is listening on port: ${port}`);
+app.listen(PORT, () => {
+  console.log(`The server is listening on port: ${PORT}`);
 });

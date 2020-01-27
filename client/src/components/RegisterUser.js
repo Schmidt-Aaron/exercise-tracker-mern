@@ -29,7 +29,7 @@ const RegisterUser = () => {
     fetchPromise
       .then(response => {
         // handle error for duplicate entry
-        //TODO refactor response error handling into seperate file
+        //TODO refactor response error handling into separate rate file
         if (!response.ok) {
           response.json().then(error => {
             console.error(error);
